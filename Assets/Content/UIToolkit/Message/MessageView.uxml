@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UIToolkit/Message/MessageViewStyle.uss?fileID=7433441132597879392&amp;guid=6f4014a4abc8b44eea7b538975df450f&amp;type=3#MessageViewStyle" />
+    <ui:VisualElement name="message-view" class="message-view">
+        <ui:Label name="message-label" text=" " />
+    </ui:VisualElement>
+</ui:UXML>

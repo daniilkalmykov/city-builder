@@ -1,0 +1,23 @@
+{
+    "name": "Application",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3577d2a75ef94e3fa95d929e68ce0737",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:c4d76e383be14cc2bfa2f316b9976d48",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:4f682e06dbb3e624faedad9cc27106cc",
+        "GUID:62b8093c58884f048d762d4b6fbdc359",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:56a09d47bc314e4093b71437e8669b14"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

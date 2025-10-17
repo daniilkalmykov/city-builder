@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style
+        src="project://database/Assets/Content/UIToolkit/GameHUDStyle.uss?fileID=7433441132597879392&amp;guid=8556ed18a968a4db79af2bcd72332920&amp;type=3#GameHUDStyle" />
+    <ui:VisualElement name="root">
+        <ui:Label name="coin-icon" text="🪙" />
+        <ui:Label name="coin-count" text="0" />
+    </ui:VisualElement>
+</ui:UXML>

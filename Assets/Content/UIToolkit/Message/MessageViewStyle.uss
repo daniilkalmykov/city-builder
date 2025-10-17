@@ -1,0 +1,22 @@
+.message-view {
+    position: absolute;
+    bottom: 20px;       /* отступ снизу */
+    left: 50%;          /* по центру */
+    transform: translateX(-50%);   /* центрируем сам элемент */
+
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+
+    opacity: 0;
+    display: none;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+}
+
+/* когда показывается */
+.message-view.visible {
+    display: flex;
+    opacity: 1;
+}

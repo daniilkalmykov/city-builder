@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fd25b96db74b5d8d4b9f2551852c07, type: 3}
+  m_Name: DefaultHouse 1
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Default 1
+  <Prefab>k__BackingField: {fileID: 30148583687371862, guid: 0e97c163ee6e84824a41380c0ca6c6f1, type: 3}
+  <Income>k__BackingField: 4
+  <UpgradeIncomeFactor>k__BackingField: 2
+  <Price>k__BackingField: 30
+  <UpgradePrice>k__BackingField: 40

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildingRepositories:
   - {fileID: 11400000, guid: 744015e6daa594e8481c955fcef0c149, type: 2}
+  - {fileID: 11400000, guid: c61e2c81c093d48a3940978654a180ba, type: 2}
+  - {fileID: 11400000, guid: a77e930ce62af4cb997fdb1427208546, type: 2}

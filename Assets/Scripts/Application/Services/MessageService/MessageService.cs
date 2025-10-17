@@ -14,10 +14,11 @@ namespace Application.Services.MessageService
 
         public void SendMessage(string message)
         {
-            if (string.IsNullOrEmpty(message) == false)
-            {
-                _messageModel.Message.Value = message;
-            }
+            if (string.IsNullOrEmpty(message) != false)
+                return;
+            
+            _messageModel.Message.Value = message;
+            _messageModel.Message.Value = " ";
         }
     }
 }

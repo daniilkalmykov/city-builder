@@ -94,7 +94,7 @@ namespace Application.UseCases
 
                 await UniTask.Yield();
 
-                var building = _buildingFactory.CreateBuilding("Default", position);
+                var building = _buildingFactory.CreateBuilding(_currentId, position);
 
                 _gridModel.OccupyCell((int)position.x, (int)position.z, building);
                 _buildingSpawnedPublisher.Publish(new BuildingSpawnedMessageDto(building));

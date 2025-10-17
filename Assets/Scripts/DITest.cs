@@ -3,7 +3,6 @@ using Application.Services.RaycastService;
 using Application.Services.TranscationService;
 using Application.UseCases;
 using Domain.Gameplay.Models.GameState;
-using Domain.Gameplay.Models.Messages;
 using Domain.Gameplay.Models.Wallet;
 using Infrastructure.Factories.Buildings;
 using Infrastructure.Factories.Grid;
@@ -55,8 +54,7 @@ public class DITest : LifetimeScope
         builder.Register<ITransactionService, InGameWalletTransactionService>(Lifetime.Singleton);
         builder.Register<AddStartMoneyUseCase>(Lifetime.Singleton);
         builder.Register<IInitializable, CoinsPresenter>(Lifetime.Singleton);
-        builder.Register<IInitializable, MessagePresenter>(Lifetime.Singleton);
-        builder.Register<IMessageModel, MessageModel>(Lifetime.Singleton);
+        builder.Register<MessagePresenter>(Lifetime.Singleton);
         builder.Register<IMessageService, MessageService>(Lifetime.Singleton);
         
         builder.RegisterComponentInHierarchy<Test2>();
@@ -77,6 +75,7 @@ public class DITest : LifetimeScope
             container.Resolve<IncomeUseCase>();
             container.Resolve<AddStartMoneyUseCase>();
             container.Resolve<ChooseBuildingUseCase>();
+            container.Resolve<MessagePresenter>();
         });
 
     }

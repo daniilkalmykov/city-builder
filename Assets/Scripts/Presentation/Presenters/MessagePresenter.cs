@@ -1,50 +1,53 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domain.Gameplay.Models.Messages;
+using Domain.Gameplay.MessagesDTO;
+using MessagePipe;
 using Presentation.Views.MessageView;
-using R3;
-using VContainer.Unity;
 
 namespace Presentation.Presenters
 {
-    internal sealed class MessagePresenter : IDisposable, IInitializable
+    internal sealed class MessagePresenter : IDisposable
     {
         private readonly IMessageView _messageView;
-        private readonly IMessageModel _messageModel;
 
         private IDisposable _disposable;
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource _cancellationTokenSource;
 
-        public MessagePresenter(IMessageView messageView, IMessageModel messageModel)
+        public MessagePresenter(IMessageView messageView, ISubscriber<MessageSentMessageDto> messageSentSubscriber)
         {
             _messageView = messageView;
-            _messageModel = messageModel;
-        }
+            
+            var bag = DisposableBag.CreateBuilder();
 
-        public void Initialize()
-        {
-            _disposable = _messageModel.Message.Subscribe(ShowMessageAsync);
+            messageSentSubscriber.Subscribe(OnMessageSent).AddTo(bag);
+
+            _disposable = bag.Build();
         }
 
         public void Dispose()
         {
             _disposable?.Dispose();
             _disposable = null;
-            _cts?.Cancel();
-            _cts?.Dispose();
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
         }
 
+        private void OnMessageSent(MessageSentMessageDto message)
+        {
+            ShowMessageAsync(message.Message);
+        }
+        
         private async void ShowMessageAsync(string message)
         {
             try
             {
-                _cts?.Cancel();
-                _cts = new CancellationTokenSource();
+                _cancellationTokenSource?.Cancel();
+                _cancellationTokenSource = new CancellationTokenSource();
 
                 _messageView.Show(message);
 
-                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: _cts.Token);
+                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: _cancellationTokenSource.Token);
 
                 _messageView.Hide();
             }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Domain.Gameplay.Models.Messages;
 using Presentation.Views.MessageView;
@@ -13,6 +14,7 @@ namespace Presentation.Presenters
         private readonly IMessageModel _messageModel;
 
         private IDisposable _disposable;
+        private CancellationTokenSource _cts;
 
         public MessagePresenter(IMessageView messageView, IMessageModel messageModel)
         {
@@ -22,18 +24,34 @@ namespace Presentation.Presenters
 
         public void Initialize()
         {
-            _disposable = _messageModel.Message.Subscribe(async message =>
-            {
-                _messageView.Show(message);
-                await UniTask.Delay(TimeSpan.FromSeconds(1));
-                
-            });
+            _disposable = _messageModel.Message.Subscribe(ShowMessageAsync);
         }
 
         public void Dispose()
         {
             _disposable?.Dispose();
             _disposable = null;
+            _cts?.Cancel();
+            _cts?.Dispose();
+        }
+
+        private async void ShowMessageAsync(string message)
+        {
+            try
+            {
+                _cts?.Cancel();
+                _cts = new CancellationTokenSource();
+
+                _messageView.Show(message);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: _cts.Token);
+
+                _messageView.Hide();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error showing message", e);
+            }
         }
     }
 }

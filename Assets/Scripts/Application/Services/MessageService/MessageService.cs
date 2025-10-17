@@ -14,7 +14,7 @@ namespace Application.Services.MessageService
 
         public void SendMessage(string message)
         {
-            if (string.IsNullOrEmpty(message) == false && string.Equals(message, _messageModel.Message.Value) == false)
+            if (string.IsNullOrEmpty(message) == false)
             {
                 _messageModel.Message.Value = message;
             }

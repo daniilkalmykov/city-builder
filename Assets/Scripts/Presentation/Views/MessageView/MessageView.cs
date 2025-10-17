@@ -43,7 +43,7 @@ namespace Presentation.Views.MessageView
 
         public void Hide()
         {
-            root.RemoveFromClassList("visible");
+            _messageElement.RemoveFromClassList("visible");
         }
     }
 }

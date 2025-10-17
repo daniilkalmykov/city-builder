@@ -415,9 +415,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1305257106}
   - component: {fileID: 1305257107}
-  - component: {fileID: 1305257108}
   m_Layer: 0
-  m_Name: TEst
+  m_Name: Bootstrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,18 +457,6 @@ MonoBehaviour:
   _buildingRepository: {fileID: 11400000, guid: 9f96db53faae64705aef39edf615cebf, type: 2}
   _cameraRepository: {fileID: 11400000, guid: 63b5de079a7834db1ad28f486d1f59a8, type: 2}
   _playerRepository: {fileID: 11400000, guid: 6f6ec985be66d4f79ac08c6e57cd6137, type: 2}
---- !u!114 &1305257108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305257105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5862741a994c9a8041784ae1239e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1902071263
 GameObject:
   m_ObjectHideFlags: 0

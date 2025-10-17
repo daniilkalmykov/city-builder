@@ -19,7 +19,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class DITest : LifetimeScope
+public class MainInstaller : LifetimeScope
 {
     [SerializeField] private GridRepository _gridRepository;
     [SerializeField] private BuildingsRepository _buildingRepository;
@@ -42,6 +42,7 @@ public class DITest : LifetimeScope
         builder.Register<ChooseBuildingUseCase>(Lifetime.Singleton);
         builder.Register<MoveBuildingUseCase>(Lifetime.Singleton);
         builder.Register<UpgradeBuildingUseCase>(Lifetime.Singleton);
+        builder.Register<IStartable, StartGameUseCase>(Lifetime.Singleton);
         builder.Register<IncomeUseCase>(Lifetime.Singleton);
         builder.Register<IRaycastService, RaycastService>(Lifetime.Singleton);
         builder.Register<IInputSystem, ITickable, PCInputSystem>(Lifetime.Singleton);
@@ -57,7 +58,6 @@ public class DITest : LifetimeScope
         builder.Register<MessagePresenter>(Lifetime.Singleton);
         builder.Register<IMessageService, MessageService>(Lifetime.Singleton);
         
-        builder.RegisterComponentInHierarchy<Test2>();
         builder.RegisterComponentInHierarchy<Camera>();
         builder.RegisterComponentInHierarchy<ICoinsView>();
         builder.RegisterComponentInHierarchy<IMessageView>();

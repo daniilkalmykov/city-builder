@@ -40,6 +40,7 @@ public class DITest : LifetimeScope
         builder.Register<SelectBuildingUseCase>(Lifetime.Singleton);
         builder.Register<DeleteBuildingUseCase>(Lifetime.Singleton);
         builder.Register<ChangeGameStateUseCase>(Lifetime.Singleton);
+        builder.Register<ChooseBuildingUseCase>(Lifetime.Singleton);
         builder.Register<MoveBuildingUseCase>(Lifetime.Singleton);
         builder.Register<UpgradeBuildingUseCase>(Lifetime.Singleton);
         builder.Register<IncomeUseCase>(Lifetime.Singleton);
@@ -75,6 +76,7 @@ public class DITest : LifetimeScope
             container.Resolve<UpgradeBuildingUseCase>();
             container.Resolve<IncomeUseCase>();
             container.Resolve<AddStartMoneyUseCase>();
+            container.Resolve<ChooseBuildingUseCase>();
         });
 
     }

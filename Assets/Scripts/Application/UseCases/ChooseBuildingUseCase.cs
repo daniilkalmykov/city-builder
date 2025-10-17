@@ -10,13 +10,15 @@ namespace Application.UseCases
     {
         private readonly IBuildingsRepository _buildingsRepository;
         private readonly IPublisher<BuildingChosenMessageDto> _buildingChosenMessagePublisher;
-        
+
         private IDisposable _disposable;
 
         public ChooseBuildingUseCase(ISubscriber<NumberButtonPressedMessageDto> numberButtonPressedSubscriber,
-            IBuildingsRepository buildingsRepository)
+            IBuildingsRepository buildingsRepository,
+            IPublisher<BuildingChosenMessageDto> buildingChosenMessagePublisher)
         {
             _buildingsRepository = buildingsRepository;
+            _buildingChosenMessagePublisher = buildingChosenMessagePublisher;
             var bag = DisposableBag.CreateBuilder();
 
             numberButtonPressedSubscriber.Subscribe(OnNumberButtonPressed).AddTo(bag);

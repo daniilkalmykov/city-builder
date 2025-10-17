@@ -35,12 +35,14 @@ namespace Application.UseCases
         private void OnNumberButtonPressed(NumberButtonPressedMessageDto msg)
         {
             if (_buildingsRepository.Buildings.Count < msg.Index)
+            {
+                _buildingChosenMessagePublisher.Publish(new BuildingChosenMessageDto(null));
                 return;
+            }
 
             var repository = _buildingsRepository.Buildings[msg.Index - 1];
 
             _buildingChosenMessagePublisher.Publish(new BuildingChosenMessageDto(repository));
-            Debug.LogError("Building chosen: " + repository.Id);
         }
     }
 }

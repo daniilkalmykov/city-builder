@@ -14,10 +14,4 @@ public class Test2 : MonoBehaviour
     {
         _publisher.Publish(new GameLoadedMessageDto());
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _gameStateChanger.Change(GameState.Building);
-    }
 }

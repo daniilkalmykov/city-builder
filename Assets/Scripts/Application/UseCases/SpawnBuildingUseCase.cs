@@ -26,12 +26,14 @@ namespace Application.UseCases
 
         private IDisposable _disposable;
         private IGridModel _gridModel;
+        private string _currentId;
 
         public SpawnBuildingUseCase(ISubscriber<ScreenTouchedMessageDto> screenTouchedSubscriber,
             IRaycastService raycastService, Camera camera, IBuildingFactory buildingFactory,
             ISubscriber<GridInitializedMessageDto> gridInitializedSubscriber, IGameStateChanger gameStateChanger,
             IPublisher<BuildingSpawnedMessageDto> buildingSpawnedPublisher, ITransactionService transactionService,
-            IBuildingsRepository buildingsRepository, IMessageService messageService)
+            IBuildingsRepository buildingsRepository, IMessageService messageService,
+            ISubscriber<BuildingChosenMessageDto> buildingChosenSubscriber)
         {
             _raycastService = raycastService;
             _camera = camera;
@@ -46,6 +48,7 @@ namespace Application.UseCases
 
             screenTouchedSubscriber.Subscribe(OnScreenTouched).AddTo(bag);
             gridInitializedSubscriber.Subscribe(OnGridInitialized).AddTo(bag);
+            buildingChosenSubscriber.Subscribe(OnBuildingChosen).AddTo(bag);
 
             _disposable = bag.Build();
         }
@@ -60,7 +63,7 @@ namespace Application.UseCases
         {
             try
             {
-                if (_gameStateChanger.CurrentState != GameState.Building)
+                if (_gameStateChanger.CurrentState != GameState.Building || string.IsNullOrEmpty(_currentId))
                     return;
 
                 var ray = _camera.ScreenPointToRay(screenTouchedDto.Position);
@@ -75,7 +78,7 @@ namespace Application.UseCases
                 if (_gridModel.IsCellEmpty((int)position.x, (int)position.z) == false)
                     return;
 
-                if (_buildingsRepository.TryGetBuilding("Default", out var repository) == false)
+                if (_buildingsRepository.TryGetBuilding(_currentId, out var repository) == false)
                     return;
 
                 if (_transactionService.HasMoneyToSpend(repository.Price) == false)
@@ -106,6 +109,17 @@ namespace Application.UseCases
         private void OnGridInitialized(GridInitializedMessageDto gridInitializedDto)
         {
             _gridModel = gridInitializedDto.GridModel;
+        }
+
+        private void OnBuildingChosen(BuildingChosenMessageDto buildingChosenMessageDto)
+        {
+            if (buildingChosenMessageDto.Building == null)
+            {
+                _currentId = "";
+                return;
+            }
+            
+            _currentId = buildingChosenMessageDto.Building.Id;
         }
     }
 }

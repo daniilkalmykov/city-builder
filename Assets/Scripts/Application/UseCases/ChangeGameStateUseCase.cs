@@ -2,7 +2,6 @@ using System;
 using Domain.Gameplay.MessagesDTO;
 using Domain.Gameplay.Models.GameState;
 using MessagePipe;
-using VContainer.Unity;
 
 namespace Application.UseCases
 {
@@ -16,7 +15,8 @@ namespace Application.UseCases
             ISubscriber<BuildingSelectedMessageDto> buildingSelectedMessageSubscriber,
             ISubscriber<BuildingDeletedMessageDto> buildingDeletedMessageSubscriber,
             ISubscriber<BuildingMovedMessageDto> buildingMovedMessageSubscriber,
-            ISubscriber<CancelOperationButtonClickedMessageDto> cancelOperationButtonClickedSubscriber)
+            ISubscriber<CancelOperationButtonClickedMessageDto> cancelOperationButtonClickedSubscriber,
+            ISubscriber<BuildingChosenMessageDto> buildingChosenMessageSubscriber)
         {
             _gameStateChanger = gameStateChanger;
 
@@ -26,6 +26,7 @@ namespace Application.UseCases
             buildingDeletedMessageSubscriber.Subscribe(OnBuildingDeleted).AddTo(bag);
             buildingMovedMessageSubscriber.Subscribe(OnBuildingMoved).AddTo(bag);
             cancelOperationButtonClickedSubscriber.Subscribe(OnCancelOperationButtonClicked).AddTo(bag);
+            buildingChosenMessageSubscriber.Subscribe(OnBuildingChosen).AddTo(bag);
 
             _disposable = bag.Build();
         }
@@ -55,6 +56,12 @@ namespace Application.UseCases
         private void OnCancelOperationButtonClicked(CancelOperationButtonClickedMessageDto cancelOperationButtonClickedMessageDto)
         {
             _gameStateChanger.Change(GameState.Idle);
+        }
+
+        private void OnBuildingChosen(BuildingChosenMessageDto buildingChosenMessageDto)
+        {
+            if (buildingChosenMessageDto.Building != null)
+                _gameStateChanger.Change(GameState.Building);
         }
     }
 }
